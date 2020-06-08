@@ -403,7 +403,7 @@ a formulation of the integer partition problem also as an integer
 programming problem. As we have seen during lecture, an integer program
 is a linear program where all the variables have integrality
 constraints. Although integer programming is know to be NP-complete, the
-the Gurobi Optimizer is capable of solving such models using
+Gurobi Optimizer is capable of solving such models using
 state-of-the-art mathematics and computer science {[}2{]}. We use the
 Python API provided with the Gurobi Optimizer to formulate and solve the
 problems. The jupyter notebook containing the code and the generated files for each model are available at {[}3{]}.
@@ -445,7 +445,7 @@ assigned the value \(v\), otherwise \(assign_{ijv} = 0\).
 \subsubsection{Constraints}\label{constraints}
 
 The indications in the rules each give rise to some constraints.
-Fisrtly, since each cell must be assigned exactly one number we know
+Firstly, since each cell must be assigned exactly one number we know
 that for all blank cells \((i,j)\)
 
 \[\sum_{v=1}^{9} assign_{ijv} = 1\]
@@ -671,9 +671,9 @@ In addition, the difference must be minimized, but remain greater than
 
 \subsubsection{Objective}\label{objective}
 
-Since a solution to the "strict" partition problem does not always
+Since an exact solution to the partition problem does not always
 exists, we will try to minimize the difference of the two partitions.
-When the solution exits, the difference is equal to \$ 0 \$ and it is
+When there is an exact solution, the difference is equal to \(0\) and it is
 the smallest it can get because of the non-negativity constraint.
 
 \[Minimize \sum_{a \in A}a - \sum_{b \in B}b\]
@@ -683,9 +683,9 @@ the smallest it can get because of the non-negativity constraint.
 We begin by importing the necessary modules. Next we define a reusable
 function to run a model. The function \texttt{integer\_partition} takes
 a list of integers defining an instance of the integer partition
-problem. It declares declare the decision variables then adds the
+problem. It declares the decision variables then adds the
 constraints. The function \texttt{print\_solution} just prints a
-solution returned by the function \texttt{integer\_partition}.
+solution returned by \texttt{integer\_partition}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{4}{\boxspacing}
@@ -699,7 +699,7 @@ solution returned by the function \texttt{integer\_partition}.
 
 
 \PY{k}{def} \PY{n+nf}{integer\PYZus{}partition}\PY{p}{(}\PY{n}{S}\PY{p}{,} \PY{n}{fname}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
-    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return two lists solution to the integer partition on S.}
+    \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return a dictionary solution to the integer partition on S.}
 \PY{l+s+sd}{    }
 \PY{l+s+sd}{    Args:}
 \PY{l+s+sd}{        S: iterable of integers}
@@ -735,7 +735,7 @@ solution returned by the function \texttt{integer\_partition}.
     \PY{n}{m}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{p}{)}
     \PY{n}{result} \PY{o}{=} \PY{n}{defaultdict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)}
 
-    \PY{c+c1}{\PYZsh{} add each element of nums to the set to which it belongs in the partition}
+    \PY{c+c1}{\PYZsh{} add each element of S to the set to which it belongs in the partition}
     \PY{k}{for} \PY{n}{s}\PY{p}{,} \PY{n}{i} \PY{o+ow}{in} \PY{n}{partition}\PY{p}{:}
         \PY{k}{if} \PY{n}{partition}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{sys}\PY{o}{.}\PY{n}{float\PYZus{}info}\PY{o}{.}\PY{n}{epsilon}\PY{p}{:}
             \PY{n}{result}\PY{p}{[}\PY{n}{s}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
@@ -752,8 +752,8 @@ solution returned by the function \texttt{integer\_partition}.
 
     \subsection{Running the model}\label{running-the-model}
 
-We now run the model on two instances, one for which we know it has at
-least two solutions and the other, a random instance with no exact
+We now run the model on two instances, one for which there is 
+an exact solution and another instance with no exact
 solution.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -842,7 +842,7 @@ sum(B) = sum([372, 734, 954, 124, 985, 462, 522, 70, 204, 751]) = 5178
     \end{Verbatim}
 
     The results of running the model on the two instances, show that our
-implementation is capable of finding an exact soluion when it exists.
+implementation is capable of finding an exact solution when it exists.
 And if it does not, it finds the best approximation as examplified by
 the last instance.
 
@@ -853,7 +853,7 @@ the last instance.
 https://www.gurobi.com/products/gurobi-optimizer/\\
 {[}3{]} Source code and files repository,
 https://github.com/faustind/gurobipy\\
-{[}4{]} The Algorithm Design Manual 13.10, 2nd Steven S. Skiena
+{[}4{]} The Algorithm Design Manual, 2nd Ed, Section 13.10, Steven S. Skiena
 
 
     % Add a bibliography block to the postdoc
